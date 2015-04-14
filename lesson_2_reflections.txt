@@ -62,6 +62,11 @@ if you add the file to the staging area and run  git diff  again, then the files
 to see the difference between the staging area and the committed files, then use
 git diff --staged
 
+git diff commitX commitY  shows differences between two commits.  learned in lesson 1
+
+
+
+
 
 
 
