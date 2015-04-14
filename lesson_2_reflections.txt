@@ -35,6 +35,35 @@ This is needed for tracking your code changes under this new repository
 to add files to the new git repository, the need to be included via   git add  command
 then when we use   git commit   they'll be added from the "staging" area to the repository
 
+git add <filename1>
+git add <filename2>
+or
+git add *     to add all files
+
+
+How is the staging area different from the working directory and the repository? What value do you think it offers?
+the staging area shows items that have been added to tracking that can then be committed to the respository. Working directory can have files that aren't necessarily going to be tracked.
+It allows for separate experimentation without having to muddy the repository.
+
+
+git commit opens the editor for a commit
+add your commit message to the top of the file so that this information can appear in the git log output
+
+(hint: ensure that the editor is configured properly)
+git config --global core.editor "/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl -n -w"
+
+or use
+git commit -m "somemessage"
+and the editor isn't required
+
+git diff   with not arguments will show the differences between files in the working directory and the files in the staging area
+if you add the file to the staging area and run  git diff  again, then the files that are added will not show in the diff as they are now the same
+
+to see the difference between the staging area and the committed files, then use
+git diff --staged
+
+
+
 
 
 
