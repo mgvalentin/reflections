@@ -1,0 +1,10 @@
+Share with others
+
+using GitHub for this lesson
+
+pushing a local repository to the remote github repository
+
+create an empty repository remotely on github; these are called 'remotes'
+
+
+
