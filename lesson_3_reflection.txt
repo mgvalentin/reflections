@@ -7,4 +7,32 @@ pushing a local repository to the remote github repository
 create an empty repository remotely on github; these are called 'remotes'
 
 
+forking a respository vs. cloning it
+
+when adding commits to the local and remote independently, you end up with repositories that are out of sync
+if working alone, not an issue unless you work on multiple machines
+with a team of people
+
+git pull origin master
+	is the same as
+git fetch origin
+git merge master origin/master
+
+
+fast-forward merge
+when you can get to an ancestor from a current commit branch
+
+when updating code, pull the origin repository to your local machine to ensure that you are in sync with the local rep
+then branch locally, create your code, but don't merge into the master.  Then push this new branch to the remote.
+this allows you now to create a pull request for someone to review the new branch.
+
+think of a "pull" request as a "merge" request as we are asking someone to review the changes made and pull those changes into the master branch
+
+changes to the master or branches to the master on the remote MUST be pulled to your local
+before you merge into master and push to remote
+if you're not sure what the changes are on the remote, you can git fetch first to review the changes
+and if satisified, merge the master with the origin/master
+
+
+
 

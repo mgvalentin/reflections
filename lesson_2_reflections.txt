@@ -67,6 +67,103 @@ git diff commitX commitY  shows differences between two commits.  learned in les
 
 
 
+How can you use the staging area to make sure you have one commit per logical change?
+
+
+
+git branch
+displays the reachable branches and indicates the current checked out branch with an asterisk
+
+mvalent2 (coins) asteroids $ git branch
+  bugfix/AS-1-non-stop-firing-occurs-incorrectly
+* coins
+  easy-mode
+  master
+
+git checkout -b <new branch name>
+will create a new branch with the name used and checkout that branch to be current
+that new branch will have a parent based on the previous checkout
+all future commits will be made on the new branch
+
+once we merge into master, we can delete the previous branch name that was merged in.  the commits will remain.
+git branch -d coins
+then commits, once merged, will appear in timestamp order
+
+checkout the master
+to see which branch is checked out, enter   git branch
+if not master, then use  git checkout master
+
+git merge master coins  will merge master with coins and display the pop-up editor to enter the commit message
+else 
+git merge master coins -m "message"
+
+now that they're merged, and commits are interleaved by timestamp, a diff doesn't show the delta for it's parent but rather the previous commit.  that isn't helpful since many changes may be shown.
+
+git show <commit ID> will show the commit changes as compared to its parent as if it wasn't merged
+
+
+merging didn't quite work as in the video
+git merge master coins
+resulted in
+mvalent2 (master) asteroids $ git merge master coins
+Auto-merging game.js
+CONFLICT (content): Merge conflict in game.js
+Automatic merge failed; fix conflicts and then commit the result.
+
+This results when the same parts of a file are changed and git can't easily merge or reconcile
+as git doesn't know which changes should survive.
+
+
+
+mvalent2 (master *+|MERGING) asteroids $ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+	both modified:      game.js
+
+no changes added to commit (use "git add" and/or "git commit -a")
+mvalent2 (master *+|MERGING) asteroids $ git add game.js
+mvalent2 (master +|MERGING) asteroids $ git merge master coins
+fatal: You have not concluded your merge (MERGE_HEAD exists).
+Please, commit your changes before you can merge.
+mvalent2 (master +|MERGING) asteroids $ git commit -m "repaired merge conflict"
+[master 10746ca] repaired merge conflict
+mvalent2 (master) asteroids $ git log
+commit 10746cacf3909caa3c7e9e5f4de5ca101e23b26a
+Merge: 8adeb20 354dfdd
+Author: Michael Valentin <mvalent2@cablevision.com>
+Date:   Wed Apr 15 22:26:22 2015 -0400
+
+    repaired merge conflict
+
+but this left the game.js file in a very bad state with merge messages left behind.  
+should NOT have done this.
+
+I reverted to the previous state using
+git reset --merge 8adeb2033faf84892f91347ec8b64fdb19cf40ec
+
+
+looking at the file in conflict, you'll see <<<<<<< =======  >>>>>>> and ||||||| markers to denote
+<<<<<<< HEAD      this section contains the code checked out
+|||||||           this section contains the original code that is from the "merged common ancestors" before  
+                  changes
+=======           marks the end of the previous section and the start of the next section                  
+>>>>>>> master    the section of code above this line (but below the ======= line) is from the master branch 
+                  being merged 
+
+commit often and ensure that you commit a single unit of work
+
+
+
+
+
 
 
 
